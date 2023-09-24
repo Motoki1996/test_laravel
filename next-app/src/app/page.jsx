@@ -6,6 +6,18 @@ const CONTENT_DATA = [
     name: "Docs", 
     content: "Find in-depth information about Next.js features and API."
   },
+  {
+    name: "Learn", 
+    content: "Learn about Next.js in an interactive course with&nbsp;quizzes!"
+  },
+  {
+    name: "Templates", 
+    content: "Explore the Next.js 13 playground."
+  },
+  {
+    name: "Deploy", 
+    content: "Instantly deploy your Next.js site to a shareable URL with Vercel."
+  },
 ];
 
 export default function Home() {
@@ -49,10 +61,9 @@ export default function Home() {
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
 
-        <Comp name="Docs" content="Find in-depth information about Next.js features and API." />
-        <Comp name="Learn" content="Learn about Next.js in an interactive course with&nbsp;quizzes!" />
-        <Comp name="Templates" content="Explore the Next.js 13 playground." />
-        <Comp name="Deploy" content="Instantly deploy your Next.js site to a shareable URL with Vercel." />
+        {CONTENT_DATA.map((value) => (
+          <Comp name={value.name} content={value.content} />
+        ))}
 
       </div>
     </main>
