@@ -1,7 +1,7 @@
 "use client";
 
 import Image from 'next/image'
-import { Comp } from "../components/Comp";
+import { Comp } from "../../components/Comp";
 import { useCallback, useEffect } from 'react';
 
 const CONTENT_DATA = [
