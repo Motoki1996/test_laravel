@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { Comp } from "../components/Comp";
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const CONTENT_DATA = [
   {
@@ -23,18 +23,35 @@ const CONTENT_DATA = [
   },
 ];
 
-export default function Home() {
-  const handleClick  = (e) => {
-    console.log("aaa");
-  }
 
+export default function Home() {
+  
+  const [Count, setCount] = useState(2);
+  const [array, setArray] = useState([3]);
+  
+
+  const handleClick  = useCallback( (e) => {
+    console.log(Count);
+    setCount((Count) => Count + 1);
+  },[]);
+
+  const handleAdd = useCallback(() => {
+    setArray((prevArray) => {
+      return [...prevArray, prevArray.length + 1];
+    });
+  }, [])
+
+  
+
+  // マウント時のイベント
   useEffect(() => {
+    console.log("aaa");
     document.body.style.backgroundColor = "lightblue";
 
     return () => {
       document.body.style.backgroundColor = "lightblue";
     }    
-  }, [])
+  }, [Count])
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -73,8 +90,16 @@ export default function Home() {
           priority
         />
       </div>
-
-      <button onClick={handleClick()}>クリックしてください</button>
+      <h2>{Count}</h2>
+      <button onClick={handleClick}>クリックしてください</button>
+      <button onClick={handleAdd}>Click</button>
+      <ul>
+        {array.map(item => {
+          return(
+            <li key={item}>{item}</li>
+          )
+        })}
+      </ul>
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
 
