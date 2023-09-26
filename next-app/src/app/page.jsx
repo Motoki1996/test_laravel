@@ -25,9 +25,12 @@ const CONTENT_DATA = [
 
 
 export default function Home() {
-  
+  const style = "text-black";
+
   const [Count, setCount] = useState(2);
   const [array, setArray] = useState([3]);
+  const [text, setText] = useState("aaa");
+  const [isShow, setIsShow] = useState(true);
   
 
   const handleClick  = useCallback( (e) => {
@@ -39,9 +42,15 @@ export default function Home() {
     setArray((prevArray) => {
       return [...prevArray, prevArray.length + 1];
     });
-  }, [])
+  }, []);
 
-  
+  const handleInput = useCallback((e) => {
+    setText(e.target.value)
+  }, []);
+
+  const handleShow = useCallback(() => {
+    setIsShow((isShow) => { return !isShow});
+  }, []);
 
   // マウント時のイベント
   useEffect(() => {
@@ -90,9 +99,13 @@ export default function Home() {
           priority
         />
       </div>
-      <h2>{Count}</h2>
+      {isShow ? <h2>{Count}</h2> : null}
       <button onClick={handleClick}>クリックしてください</button>
       <button onClick={handleAdd}>Click</button>
+      <button 
+        onClick={handleShow}
+      >{isShow ? "非表示" : "表示"}</button>
+      <input type="text" value={text} onChange={handleInput} className={style} />
       <ul>
         {array.map(item => {
           return(
