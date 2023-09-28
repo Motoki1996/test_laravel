@@ -23,15 +23,9 @@ const CONTENT_DATA = [
   },
 ];
 
-
-export default function Home() {
-  const style = "text-black";
-
+const useCounter = () => {
   const [Count, setCount] = useState(2);
   const [array, setArray] = useState([3]);
-  const [text, setText] = useState("aaa");
-  const [isShow, setIsShow] = useState(true);
-  
 
   const handleClick  = useCallback( (e) => {
     console.log(Count);
@@ -44,6 +38,14 @@ export default function Home() {
     });
   }, []);
 
+  return {Count, array, handleClick, handleAdd};
+};
+
+const useInputArray = () => {
+
+  const [text, setText] = useState("aaa");
+  const [isShow, setIsShow] = useState(true);
+
   const handleInput = useCallback((e) => {
     setText(e.target.value)
   }, []);
@@ -51,6 +53,17 @@ export default function Home() {
   const handleShow = useCallback(() => {
     setIsShow((isShow) => { return !isShow});
   }, []);
+
+  return {text, isShow, handleInput, handleShow};
+};
+
+
+export default function Home() {
+
+  const {Count, array, handleClick, handleAdd} = useCounter();
+  const {text, isShow, handleInput, handleShow} = useInputArray();
+
+  const style = "text-black";
 
   // マウント時のイベント
   useEffect(() => {
