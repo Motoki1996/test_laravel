@@ -2,6 +2,9 @@
 
 import Image from 'next/image'
 import { Comp } from "../components/Comp";
+import { useCounter } from "../hooks/useCounter";
+import { useInputArray } from "../hooks/useInputArray";
+import { useSetBGColor } from "../hooks/useSetBGColor";
 import { useCallback, useEffect, useState } from 'react';
 
 const CONTENT_DATA = [
@@ -23,57 +26,14 @@ const CONTENT_DATA = [
   },
 ];
 
-const useCounter = () => {
-  const [Count, setCount] = useState(2);
-  const [array, setArray] = useState([3]);
-
-  const handleClick  = useCallback( (e) => {
-    console.log(Count);
-    setCount((Count) => Count + 1);
-  },[]);
-
-  const handleAdd = useCallback(() => {
-    setArray((prevArray) => {
-      return [...prevArray, prevArray.length + 1];
-    });
-  }, []);
-
-  return {Count, array, handleClick, handleAdd};
-};
-
-const useInputArray = () => {
-
-  const [text, setText] = useState("aaa");
-  const [isShow, setIsShow] = useState(true);
-
-  const handleInput = useCallback((e) => {
-    setText(e.target.value)
-  }, []);
-
-  const handleShow = useCallback(() => {
-    setIsShow((isShow) => { return !isShow});
-  }, []);
-
-  return {text, isShow, handleInput, handleShow};
-};
-
 
 export default function Home() {
 
   const {Count, array, handleClick, handleAdd} = useCounter();
   const {text, isShow, handleInput, handleShow} = useInputArray();
+  useSetBGColor();
 
   const style = "text-black";
-
-  // マウント時のイベント
-  useEffect(() => {
-    console.log("aaa");
-    document.body.style.backgroundColor = "lightblue";
-
-    return () => {
-      document.body.style.backgroundColor = "lightblue";
-    }    
-  }, [Count])
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
