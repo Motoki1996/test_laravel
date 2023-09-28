@@ -2,7 +2,10 @@
 
 import Image from 'next/image'
 import { Comp } from "../../components/Comp";
-import { useCallback, useEffect } from 'react';
+import { useCounter } from "../../hooks/useCounter";
+import { useInputArray } from "../../hooks/useInputArray";
+import { useSetBGColor } from "../../hooks/useSetBGColor";
+import { useCallback, useEffect, useState } from 'react';
 
 const CONTENT_DATA = [
   {
@@ -23,18 +26,14 @@ const CONTENT_DATA = [
   },
 ];
 
-export default function Home() {
-  const handleClick  = (e) => {
-    console.log("aaa");
-  }
 
-  useEffect(() => {
-    document.body.style.backgroundColor = "lightblue";
+export default function About() {
 
-    return () => {
-      document.body.style.backgroundColor = "lightblue";
-    }    
-  }, [])
+  const {Count, array, handleClick, handleAdd} = useCounter();
+  const {text, isShow, handleInput, handleShow} = useInputArray();
+  useSetBGColor();
+
+  const style = "text-black";
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -73,8 +72,20 @@ export default function Home() {
           priority
         />
       </div>
-
-      <button onClick={handleClick()}>クリックしてください</button>
+      {isShow ? <h2>{Count}</h2> : null}
+      <button onClick={handleClick}>クリックしてください</button>
+      <button onClick={handleAdd}>Click</button>
+      <button 
+        onClick={handleShow}
+      >{isShow ? "非表示" : "表示"}</button>
+      <input type="text" value={text} onChange={handleInput} className={style} />
+      <ul>
+        {array.map(item => {
+          return(
+            <li key={item}>{item}</li>
+          )
+        })}
+      </ul>
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
 
