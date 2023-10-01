@@ -1,34 +1,37 @@
 "use client";
 
 import Image from 'next/image'
+import contents from './contents.json' assert {type: 'json'};
 import { Comp } from "../components/Comp";
 import { Header } from "../components/Header";
 import { useCounter } from "../hooks/useCounter";
 import { useInputArray } from "../hooks/useInputArray";
 import { useSetBGColor } from "../hooks/useSetBGColor";
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-const CONTENT_DATA = [
-  {
-    name: "Docs", 
-    content: "Find in-depth information about Next.js features and API."
-  },
-  {
-    name: "Learn", 
-    content: "Learn about Next.js in an interactive course with&nbsp;quizzes!"
-  },
-  {
-    name: "Templates", 
-    content: "Explore the Next.js 13 playground."
-  },
-  {
-    name: "Deploy", 
-    content: "Instantly deploy your Next.js site to a shareable URL with Vercel."
-  },
-];
+// let CONTENT_DATA = [
+//   {
+//     name: "Docs", 
+//     content: "Find in-depth information about Next.js features and API."
+//   },
+//   {
+//     name: "Learn", 
+//     content: "Learn about Next.js in an interactive course with&nbsp;quizzes!"
+//   },
+//   {
+//     name: "Templates", 
+//     content: "Explore the Next.js 13 playground."
+//   },
+//   {
+//     name: "Deploy", 
+//     content: "Instantly deploy your Next.js site to a shareable URL with Vercel."
+//   },
+// ];
 
 
 export default function Home(props) {
+
+  let CONTENT_DATA = contents.contents;
 
   console.log(props);
   const {Count, array, handleClick, handleAdd} = useCounter();
@@ -69,7 +72,7 @@ export default function Home(props) {
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
 
         {CONTENT_DATA.map((value) => (
-          <Comp name={value.name} content={value.content} />
+          <Comp name={value.name} content={value.description} />
         ))}
 
       </div>
