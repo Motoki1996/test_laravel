@@ -1,15 +1,31 @@
 "use client"
 
 import Image from 'next/image'
-import React, { HtmlHTMLAttributes, useState } from 'react'
+import React, { HtmlHTMLAttributes, useState, useEffect } from 'react'
 import { Header } from './components/header'
 import { Content } from './components/content'
 import classes from './page.module.css'
+import { type } from 'os'
+import content from '*.png'
+import { handleClientScriptLoad } from '../../node_modules/next/script'
 
 type Todo = {
   id: number
   text: string
   done: boolean
+}
+
+type ViewCondition = {
+  resistence: boolean
+  toxicant: boolean
+  all: boolean;
+}
+
+type Content = {
+  title: string
+  description: string
+  imagePath: string
+  resistence: boolean
 }
 
 const initialTodos: Todo[] = [
@@ -22,32 +38,84 @@ const CONTENTS = [
   {
     title: 'Docs ',
     description: '説明（なんて書いてあったか忘れた）',
-    imagePath: '/img/contents/content_1.png'
+    imagePath: '/img/contents/content_1.png', 
+    resistence: false,
+    toxicant: true
   },
   {
     title: 'Learn ',
     description: 'Learn about Next.js in an interactive course with&nbsp;quizzes!',
-    imagePath: '/img/contents/content_2.png'
+    imagePath: '/img/contents/content_2.png',
+    resistence: false,
+    toxicant: false
   },
   {
     title: 'Templates ',
     description: 'Explore the Next.js 13 playground.',
-    imagePath: '/img/contents/content_3.png'
+    imagePath: '/img/contents/content_3.png',
+    resistence: false,
+    toxicant: true
   },
   {
     title: 'Deploy ',
     description: 'Instantly deploy your Next.js site to a shareable URL with Vercel.',
-    imagePath: '/img/contents/content_4.png'
+    imagePath: '/img/contents/content_4.png',
+    resistence: true,
+    toxicant: false
   },
 ];
 
+
 export default function Home() {
   const [count, setCount] = useState<number>(1);
-
+  const [viewCondition, setView] = useState<ViewCondition>({resistence: false, toxicant: false, all: true});
 
   const handleClick = () => {
     setCount((count) => count * 2);
   };
+
+  const handleView = (resistence: boolean, toxicant: boolean) => {
+    if (resistence) {
+      setView(() => {
+        let newCondition: ViewCondition = {
+          resistence: false,
+          toxicant: false,
+          all: true
+        };
+        newCondition.all = false;
+        newCondition.resistence = true;
+        return newCondition;
+      });
+    }
+    
+    if (toxicant) {
+      setView(() => {
+        let newCondition: ViewCondition = {
+          resistence: false,
+          toxicant: false,
+          all: true
+        };
+        newCondition.all = false;
+        newCondition.toxicant = true;
+        return newCondition;
+      });
+    }
+  }; 
+
+  const filteredList = CONTENTS.filter((content) => {
+    if (viewCondition?.all) {
+      return true;
+    } else {
+      if (viewCondition?.resistence) {
+        return content.resistence;
+      }
+      
+      if (viewCondition?.toxicant) {
+        return content.toxicant;
+      }
+    }
+  })
+  
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -87,12 +155,13 @@ export default function Home() {
 
       <h2>2のn乗{count}</h2>
       <button onClick={handleClick} >ボタン</button>
+      <button onClick={() => handleView(true, false)} >レジスタンスフィルタ</button>
+      <button onClick={() => handleView(false, true)} >トキシカントフィルタ</button>
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
         {
-          CONTENTS.map((content) => (
+          filteredList.map((content) => (
             <Content title={content.title} description={content.description} imagePath={content.imagePath} />
-
           ))
         }
       </div>
