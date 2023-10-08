@@ -4,6 +4,7 @@ import React, { HtmlHTMLAttributes, useState } from 'react'
 type Props = {
     title: string
     description: string
+    imagePath?: string
 };
 
 export function Content(props: Props) {
@@ -21,6 +22,11 @@ export function Content(props: Props) {
         -&gt;
       </span>
     </h2>
+    <Image src={props.imagePath ?? "/img/contents/content_1.png"}
+    height={500}
+    width={500}
+    
+    ></Image>
     <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
       {props.description}
     </p>

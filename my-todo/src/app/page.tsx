@@ -18,6 +18,29 @@ const initialTodos: Todo[] = [
   {id: 3, text: 'cc', done: false}
 ]
 
+const CONTENTS = [
+  {
+    title: 'Docs ',
+    description: '説明（なんて書いてあったか忘れた）',
+    imagePath: '/img/contents/content_1.png'
+  },
+  {
+    title: 'Learn ',
+    description: 'Learn about Next.js in an interactive course with&nbsp;quizzes!',
+    imagePath: '/img/contents/content_2.png'
+  },
+  {
+    title: 'Templates ',
+    description: 'Explore the Next.js 13 playground.',
+    imagePath: '/img/contents/content_3.png'
+  },
+  {
+    title: 'Deploy ',
+    description: 'Instantly deploy your Next.js site to a shareable URL with Vercel.',
+    imagePath: '/img/contents/content_4.png'
+  },
+];
+
 export default function Home() {
   const [count, setCount] = useState<number>(1);
 
@@ -66,10 +89,12 @@ export default function Home() {
       <button onClick={handleClick} >ボタン</button>
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <Content title='Docs ' description='説明（なんて書いてあったか忘れた）' />
-        <Content title='Learn ' description='Learn about Next.js in an interactive course with&nbsp;quizzes!' />
-        <Content title='Templates ' description='Explore the Next.js 13 playground.' />
-        <Content title='Deploy ' description='Instantly deploy your Next.js site to a shareable URL with Vercel.' />
+        {
+          CONTENTS.map((content) => (
+            <Content title={content.title} description={content.description} imagePath={content.imagePath} />
+
+          ))
+        }
       </div>
     </main>
   )
