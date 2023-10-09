@@ -77,10 +77,9 @@ export default function Home() {
     if (resistence) {
       setView(() => {
         let newCondition: ViewCondition = {
-          resistence: false,
+          resistence: true,
           toxicant: false,
         };
-        newCondition.resistence = true;
         return newCondition;
       });
     }
@@ -89,13 +88,32 @@ export default function Home() {
       setView(() => {
         let newCondition: ViewCondition = {
           resistence: false,
-          toxicant: false,
+          toxicant: true,
         };
-        newCondition.toxicant = true;
         return newCondition;
       });
     }
   }; 
+
+  const handleResistenceView = (checked: boolean) => {
+    setView((prevCondition) => {
+      let newCondition: ViewCondition = {
+        resistence: checked,
+        toxicant: prevCondition.toxicant,
+      };
+      return newCondition;
+    });
+  }
+
+  const handleToxicantView = (checked: boolean) => {
+    setView((prevCondition) => {
+      let newCondition: ViewCondition = {
+        resistence: prevCondition.resistence,
+        toxicant: checked,
+      };
+      return newCondition;
+    });
+  }
 
   const filteredList = CONTENTS.filter((content) => {
     if (!(viewCondition.resistence || viewCondition.toxicant)) {
@@ -110,6 +128,7 @@ export default function Home() {
       }
     }
   })
+
   
 
   return (
@@ -150,8 +169,14 @@ export default function Home() {
 
       <h2>2のn乗{count}</h2>
       <button onClick={handleClick} >ボタン</button>
-      <button onClick={() => handleView(true, false)} >レジスタンスフィルタ</button>
-      <button onClick={() => handleView(false, true)} >トキシカントフィルタ</button>
+      <label htmlFor="resistence">
+        <input type="checkbox" id="resistence" onChange={(e) => handleResistenceView(e.target.checked)} />レジスタンス
+      </label>
+      <label htmlFor="toxicant">
+        <input type="checkbox" id="toxicant" onChange={(e) => handleToxicantView(e.target.checked)} />トキシカント
+      </label>
+      {/* <button onClick={() => handleView(true, false)} >レジスタンスフィルタ</button>
+      <button onClick={() => handleView(false, true)} >トキシカントフィルタ</button> */}
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
         {
