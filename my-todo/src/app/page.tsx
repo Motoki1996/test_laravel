@@ -18,7 +18,6 @@ type Todo = {
 type ViewCondition = {
   resistence: boolean
   toxicant: boolean
-  all: boolean;
 }
 
 type Content = {
@@ -68,7 +67,7 @@ const CONTENTS = [
 
 export default function Home() {
   const [count, setCount] = useState<number>(1);
-  const [viewCondition, setView] = useState<ViewCondition>({resistence: false, toxicant: false, all: true});
+  const [viewCondition, setView] = useState<ViewCondition>({resistence: false, toxicant: false});
 
   const handleClick = () => {
     setCount((count) => count * 2);
@@ -80,9 +79,7 @@ export default function Home() {
         let newCondition: ViewCondition = {
           resistence: false,
           toxicant: false,
-          all: true
         };
-        newCondition.all = false;
         newCondition.resistence = true;
         return newCondition;
       });
@@ -93,9 +90,7 @@ export default function Home() {
         let newCondition: ViewCondition = {
           resistence: false,
           toxicant: false,
-          all: true
         };
-        newCondition.all = false;
         newCondition.toxicant = true;
         return newCondition;
       });
@@ -103,15 +98,15 @@ export default function Home() {
   }; 
 
   const filteredList = CONTENTS.filter((content) => {
-    if (viewCondition?.all) {
+    if (!(viewCondition.resistence || viewCondition.toxicant)) {
       return true;
     } else {
-      if (viewCondition?.resistence) {
-        return content.resistence;
-      }
-      
-      if (viewCondition?.toxicant) {
-        return content.toxicant;
+      if (viewCondition?.resistence && content.resistence) {
+        return true;
+      } else if (viewCondition?.toxicant && content.toxicant) {
+        return true;
+      } else {
+        return false;
       }
     }
   })
