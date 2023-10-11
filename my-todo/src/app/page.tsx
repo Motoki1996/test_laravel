@@ -73,43 +73,11 @@ export default function Home() {
     setCount((count) => count * 2);
   };
 
-  const handleView = (resistence: boolean, toxicant: boolean) => {
-    if (resistence) {
-      setView(() => {
-        let newCondition: ViewCondition = {
-          resistence: true,
-          toxicant: false,
-        };
-        return newCondition;
-      });
-    }
-    
-    if (toxicant) {
-      setView(() => {
-        let newCondition: ViewCondition = {
-          resistence: false,
-          toxicant: true,
-        };
-        return newCondition;
-      });
-    }
-  }; 
-
-  const handleResistenceView = (checked: boolean) => {
+  const handleView = (checked: boolean, title: string) => {
     setView((prevCondition) => {
       let newCondition: ViewCondition = {
-        resistence: checked,
-        toxicant: prevCondition.toxicant,
-      };
-      return newCondition;
-    });
-  }
-
-  const handleToxicantView = (checked: boolean) => {
-    setView((prevCondition) => {
-      let newCondition: ViewCondition = {
-        resistence: prevCondition.resistence,
-        toxicant: checked,
+        resistence: title === "resistence" ? checked : prevCondition.resistence,
+        toxicant: title === "toxicant" ? checked : prevCondition.toxicant ,
       };
       return newCondition;
     });
@@ -170,10 +138,10 @@ export default function Home() {
       <h2>2のn乗{count}</h2>
       <button onClick={handleClick} >ボタン</button>
       <label htmlFor="resistence">
-        <input type="checkbox" id="resistence" onChange={(e) => handleResistenceView(e.target.checked)} />レジスタンス
+        <input type="checkbox" id="resistence" onChange={(e) => handleView(e.target.checked, "resistence")} />レジスタンス
       </label>
       <label htmlFor="toxicant">
-        <input type="checkbox" id="toxicant" onChange={(e) => handleToxicantView(e.target.checked)} />トキシカント
+        <input type="checkbox" id="toxicant" onChange={(e) => handleView(e.target.checked, "toxicant")} />トキシカント
       </label>
       {/* <button onClick={() => handleView(true, false)} >レジスタンスフィルタ</button>
       <button onClick={() => handleView(false, true)} >トキシカントフィルタ</button> */}
