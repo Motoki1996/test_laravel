@@ -4,6 +4,7 @@ import Image from 'next/image'
 import React, { HtmlHTMLAttributes, useState, useEffect } from 'react'
 import { Header } from './components/header'
 import { Content } from './components/content'
+import { useView } from './hooks/useView'
 import classes from './page.module.css'
 import { type } from 'os'
 import content from '*.png'
@@ -67,21 +68,12 @@ const CONTENTS = [
 
 export default function Home() {
   const [count, setCount] = useState<number>(1);
-  const [viewCondition, setView] = useState<ViewCondition>({resistence: false, toxicant: false});
+
+  const {viewCondition, handleView } = useView();
 
   const handleClick = () => {
     setCount((count) => count * 2);
   };
-
-  const handleView = (checked: boolean, title: string) => {
-    setView((prevCondition) => {
-      let newCondition: ViewCondition = {
-        resistence: title === "resistence" ? checked : prevCondition.resistence,
-        toxicant: title === "toxicant" ? checked : prevCondition.toxicant ,
-      };
-      return newCondition;
-    });
-  }
 
   const filteredList = CONTENTS.filter((content) => {
     if (!(viewCondition.resistence || viewCondition.toxicant)) {
@@ -96,8 +88,6 @@ export default function Home() {
       }
     }
   })
-
-  
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -143,8 +133,6 @@ export default function Home() {
       <label htmlFor="toxicant">
         <input type="checkbox" id="toxicant" onChange={(e) => handleView(e.target.checked, "toxicant")} />トキシカント
       </label>
-      {/* <button onClick={() => handleView(true, false)} >レジスタンスフィルタ</button>
-      <button onClick={() => handleView(false, true)} >トキシカントフィルタ</button> */}
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
         {
