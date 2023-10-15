@@ -1,9 +1,14 @@
 import Image from 'next/image'
 import React, { HtmlHTMLAttributes, useState } from 'react'
-import { useView } from '../hooks/useView'  
+import { useView } from '../hooks'  
 
-export function Sidebar() {
-  const {viewCondition, handleView } = useView();
+type Props = {
+    title: string
+    description: string
+    imagePath?: string
+};
+
+export function Sidebar(props: Props) {
 
   return (
     <div className="bg-blue-800 w-40 border-4 border-blue-950 text-center" >
