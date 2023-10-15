@@ -1,0 +1,32 @@
+{
+    "contents" : [
+        {
+          "title": "Docs ",
+          "description": "説明（なんて書いてあったか忘れた）",
+          "imagePath": "/img/contents/content_1.png", 
+          "resistence": false,
+          "toxicant": true
+        },
+        {
+          "title": "Learn ",
+          "description": "Learn about Next.js in an interactive course with&nbsp;quizzes!",
+          "imagePath": "/img/contents/content_2.png",
+          "resistence": false,
+          "toxicant": false
+        },
+        {
+          "title": "Templates ",
+          "description": "Explore the Next.js 13 playground.",
+          "imagePath": "/img/contents/content_3.png",
+          "resistence": false,
+          "toxicant": true
+        },
+        {
+          "title": "Deploy ",
+          "description": "Instantly deploy your Next.js site to a shareable URL with Vercel.",
+          "imagePath": "/img/contents/content_4.png",
+          "resistence": true,
+          "toxicant": false
+        }
+      ]
+}

@@ -8,7 +8,7 @@ import { Sidebar } from './components/sidebar'
 import { useView } from './hooks/useView'
 import classes from './page.module.css'
 import { type } from 'os'
-import content from '*.png'
+import Contents from './contents.json'
 import { handleClientScriptLoad } from '../../node_modules/next/script'
 
 type Todo = {
@@ -22,6 +22,7 @@ type Content = {
   description: string
   imagePath: string
   resistence: boolean
+  toxicant: boolean
 }
 
 const initialTodos: Todo[] = [
@@ -30,41 +31,9 @@ const initialTodos: Todo[] = [
   {id: 3, text: 'cc', done: false}
 ]
 
-const CONTENTS = [
-  {
-    title: 'Docs ',
-    description: '説明（なんて書いてあったか忘れた）',
-    imagePath: '/img/contents/content_1.png', 
-    resistence: false,
-    toxicant: true
-  },
-  {
-    title: 'Learn ',
-    description: 'Learn about Next.js in an interactive course with&nbsp;quizzes!',
-    imagePath: '/img/contents/content_2.png',
-    resistence: false,
-    toxicant: false
-  },
-  {
-    title: 'Templates ',
-    description: 'Explore the Next.js 13 playground.',
-    imagePath: '/img/contents/content_3.png',
-    resistence: false,
-    toxicant: true
-  },
-  {
-    title: 'Deploy ',
-    description: 'Instantly deploy your Next.js site to a shareable URL with Vercel.',
-    imagePath: '/img/contents/content_4.png',
-    resistence: true,
-    toxicant: false
-  },
-];
-
-
 export default function Home() {
+  const CONTENTS: Content[] = Contents.contents;
   const [count, setCount] = useState<number>(1);
-
   const {viewCondition, handleView } = useView();
 
   const handleClick = () => {
