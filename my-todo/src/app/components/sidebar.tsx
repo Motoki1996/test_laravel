@@ -1,16 +1,14 @@
 import Image from 'next/image'
-import { useView } from '../hooks/useView'
 import React, { HtmlHTMLAttributes, useState } from 'react'
+import { useView } from '../hooks/useView'  
 
-type Props = {
-    title: string
-    description: string
-};
-
-export function Content(props: Props) {
+export function Sidebar() {
   const {viewCondition, handleView } = useView();
 
   return (
+    <div className="bg-blue-800 w-40 border-4 border-blue-950 text-center" >
+    <span className='' >フィルタ</span>
+    
     <div className='flex flex-col' >
       <label className='shadow mx-2' htmlFor="resistence">
         <input type="checkbox" id="resistence" onChange={(e) => handleView(e.target.checked, "resistence")} />レジスタンス
@@ -19,5 +17,6 @@ export function Content(props: Props) {
         <input type="checkbox" id="toxicant" onChange={(e) => handleView(e.target.checked, "toxicant")} />トキシカント
       </label>
     </div>
+  </div>
   )
 }

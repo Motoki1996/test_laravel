@@ -4,6 +4,7 @@ import Image from 'next/image'
 import React, { HtmlHTMLAttributes, useState, useEffect } from 'react'
 import { Header } from './components/header'
 import { Content } from './components/content'
+import { Sidebar } from './components/sidebar'
 import { useView } from './hooks/useView'
 import classes from './page.module.css'
 import { type } from 'os'
@@ -85,8 +86,21 @@ export default function Home() {
   })
 
   return (
+
     <div className={classes.main} >
-      <div className={classes.sidebar} >サイドバー</div>
+    <div className="bg-blue-800 w-40 border-4 border-blue-950 text-center" >
+    <span >フィルタ</span>
+    <button className='bg-white text-blue-700 rounded py-1 px-3' >検索</button>
+    
+    <div className='flex flex-col' >
+      <label className='shadow mx-2' htmlFor="resistence">
+        <input type="checkbox" id="resistence" onChange={(e) => handleView(e.target.checked, "resistence")} />レジスタンス
+      </label>
+      <label className='shadow mx-2' htmlFor="toxicant">
+        <input type="checkbox" id="toxicant" onChange={(e) => handleView(e.target.checked, "toxicant")} />トキシカント
+      </label>
+    </div>
+  </div>
       <div className="flex min-h-screen flex-col items-center justify-between p-24">
         <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
           <Header title="Get started by editing " path="Get started by editing src/app/page.tsx" />
@@ -121,14 +135,16 @@ export default function Home() {
           />
         </div>
 
-        <h2>2のn乗{count}</h2>
-        <button onClick={handleClick} >ボタン</button>
-        <label htmlFor="resistence">
-          <input type="checkbox" id="resistence" onChange={(e) => handleView(e.target.checked, "resistence")} />レジスタンス
-        </label>
-        <label htmlFor="toxicant">
-          <input type="checkbox" id="toxicant" onChange={(e) => handleView(e.target.checked, "toxicant")} />トキシカント
-        </label>
+        <h2 className='text-lg text-bold border-2 rounded py-1 px-3'>2のn乗 {count}</h2>
+        <button className='bg-blue-500 rounded py-1 px-3' onClick={handleClick} >ボタン</button>
+        <div className='flex' >
+          <label className='shadow mx-2' htmlFor="resistence">
+            <input type="checkbox" id="resistence" onChange={(e) => handleView(e.target.checked, "resistence")} />レジスタンス
+          </label>
+          <label className='shadow mx-2' htmlFor="toxicant">
+            <input type="checkbox" id="toxicant" onChange={(e) => handleView(e.target.checked, "toxicant")} />トキシカント
+          </label>
+        </div>
 
         <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
           {

@@ -22,10 +22,9 @@ export function Content(props: Props) {
         -&gt;
       </span>
     </h2>
-    <Image src={props.imagePath ?? "/img/contents/content_1.png"}
+    <Image className='rounded-lg' src={props.imagePath ?? "/img/contents/content_1.png"}
     height={500}
     width={500}
-    
     ></Image>
     <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
       {props.description}
