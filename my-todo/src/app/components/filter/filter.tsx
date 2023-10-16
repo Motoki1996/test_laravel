@@ -1,14 +1,14 @@
-import Image from 'next/image'
-import { useView } from '../hooks/useView'
-import React, { HtmlHTMLAttributes, useState } from 'react'
+import Image from 'next/image';
+import { useView } from '../../hooks/useView';
+import React, { HtmlHTMLAttributes, useState } from 'react';
 
 type Props = {
-    title: string
-    description: string
+  title: string;
+  description: string;
 };
 
 export function Content(props: Props) {
-  const {viewCondition, handleView } = useView();
+  const { viewCondition, handleView } = useView();
 
   return (
     <div className='flex flex-col' >
@@ -19,5 +19,5 @@ export function Content(props: Props) {
         <input type="checkbox" id="toxicant" onChange={(e) => handleView(e.target.checked, "toxicant")} />トキシカント
       </label>
     </div>
-  )
+  );
 }

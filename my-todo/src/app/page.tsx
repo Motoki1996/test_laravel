@@ -1,46 +1,46 @@
-"use client"
+"use client";
 
-import Image from 'next/image'
-import React, { HtmlHTMLAttributes, useState, useEffect, FC } from 'react'
-import { Header } from './components/header/header'
-import { Content } from './components/content/content'
-import { useView } from './hooks/useView'
-import classes from './page.module.css'
-import Contents from './contents.json'
+import Image from 'next/image';
+import React, { HtmlHTMLAttributes, useState, useEffect, FC } from 'react';
+import { Header } from './components/header/header';
+import { Content } from './components/content/content';
+import { useView } from './hooks/useView';
+import classes from './page.module.css';
+import Contents from './contents.json';
 
 type Todo = {
-  id: number
-  text: string
-  done: boolean
-}
+  id: number;
+  text: string;
+  done: boolean;
+};
 
 type Content = {
-  title: string
-  description: string
-  imagePath: string
-  resistence: boolean
-  toxicant: boolean
-}
+  title: string;
+  description: string;
+  imagePath: string;
+  resistence: boolean;
+  toxicant: boolean;
+};
 
 const initialTodos: Todo[] = [
-  {id: 1, text: 'aaa', done: false},
-  {id: 2, text: 'bbbbb', done: false},
-  {id: 3, text: 'cc', done: false}
-]
+  { id: 1, text: 'aaa', done: false },
+  { id: 2, text: 'bbbbb', done: false },
+  { id: 3, text: 'cc', done: false }
+];
 
 const CONTENTS: Content[] = Contents.contents;
 
-export const Home:FC = () => {
+export const Home: FC = () => {
   const [count, setCount] = useState<number>(1);
   const [text, setText] = useState<string>();
-  const {viewCondition, handleView } = useView();
+  const { viewCondition, handleView } = useView();
 
-  const handleText = () => {
-    setText(() => text);
+  const handleText = (value: string) => {
+    setText(value);
   };
 
   const handleSearch = () => {
-    setText(() => "");
+    setText("");
   };
 
   const handleClick = () => {
@@ -59,7 +59,7 @@ export const Home:FC = () => {
         return false;
       }
     }
-  })
+  });
 
   return (
 
@@ -67,7 +67,7 @@ export const Home:FC = () => {
       <div className="bg-blue-900 w-80 border-4 border-blue-950 text-center" >
         <h2 className='text-lg mt-2 font-bold' >フィルタ</h2>
         <div className='flex box-border my-5'>
-          <input type="text" className='mx-2 text-black h-8 w-auto rounded' value={text} onChange={handleText} />
+          <input type="text" className='mx-2 text-black h-8 w-auto rounded' value={text} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleText(e.target.value)} />
           <button className='bg-blue-500 text-white rounded py-1 px-3 mr-2 h-8 w-16 transform hover:bg-blue-700 hover:scale-95 duration-75' onClick={handleSearch} >検索</button>
         </div>
 
@@ -128,7 +128,7 @@ export const Home:FC = () => {
       </div>
 
     </div>
-  )
-}
+  );
+};
 
 export default Home;
