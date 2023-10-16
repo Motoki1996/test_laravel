@@ -5,6 +5,7 @@ import React, { HtmlHTMLAttributes, useState, useEffect, FC } from 'react';
 import { Header } from './components/header/header';
 import { Content } from './components/content/content';
 import { Button } from './atoms/Button/Button';
+import { Input } from './atoms/Input/Input';
 import { useView } from './hooks/useView';
 import classes from './page.module.css';
 import Contents from './contents.json';
@@ -68,7 +69,7 @@ export const Home: FC = () => {
       <div className="bg-blue-900 w-80 border-4 border-blue-950 text-center" >
         <h2 className='text-lg mt-2 font-bold' >フィルタ</h2>
         <div className='flex box-border my-5'>
-          <input type="text" className='mx-2 text-black h-8 w-auto rounded' value={text} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleText(e.target.value)} />
+          <Input type="text" value={text} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleText(e.target.value)} />
           <Button text='検索' onClick={handleSearch} />
         </div>
 
@@ -96,7 +97,7 @@ export const Home: FC = () => {
               <Image
                 src="/vercel.svg"
                 alt="Vercel Logo"
-                className="dark:invert" s
+                className="dark:invert"
                 width={100}
                 height={24}
                 priority
