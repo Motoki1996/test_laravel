@@ -1,15 +1,12 @@
 "use client"
 
 import Image from 'next/image'
-import React, { HtmlHTMLAttributes, useState, useEffect } from 'react'
-import { Header } from './components/header'
-import { Content } from './components/content'
-import { Sidebar } from './components/sidebar'
+import React, { HtmlHTMLAttributes, useState, useEffect, FC } from 'react'
+import { Header } from './components/header/header'
+import { Content } from './components/content/content'
 import { useView } from './hooks/useView'
 import classes from './page.module.css'
-import { type } from 'os'
 import Contents from './contents.json'
-import { handleClientScriptLoad } from '../../node_modules/next/script'
 
 type Todo = {
   id: number
@@ -31,10 +28,20 @@ const initialTodos: Todo[] = [
   {id: 3, text: 'cc', done: false}
 ]
 
-export default function Home() {
-  const CONTENTS: Content[] = Contents.contents;
+const CONTENTS: Content[] = Contents.contents;
+
+export const Home:FC = () => {
   const [count, setCount] = useState<number>(1);
+  const [text, setText] = useState<string>();
   const {viewCondition, handleView } = useView();
+
+  const handleText = () => {
+    setText(() => text);
+  };
+
+  const handleSearch = () => {
+    setText(() => "");
+  };
 
   const handleClick = () => {
     setCount((count) => count * 2);
@@ -59,12 +66,12 @@ export default function Home() {
     <div className={classes.main} >
       <div className="bg-blue-900 w-80 border-4 border-blue-950 text-center" >
         <h2 className='text-lg mt-2 font-bold' >フィルタ</h2>
-        <form className='flex box-border my-5'>
-          <input type="text" className='mx-2 text-black h-8 w-auto rounded' value={"aa"} />
-          <button className='bg-blue-500 text-white rounded py-1 px-3 mr-2 h-8 w-16 hover:bg-blue-700' >検索</button>
-        </form>
+        <div className='flex box-border my-5'>
+          <input type="text" className='mx-2 text-black h-8 w-auto rounded' value={text} onChange={handleText} />
+          <button className='bg-blue-500 text-white rounded py-1 px-3 mr-2 h-8 w-16 transform hover:bg-blue-700 hover:scale-95 duration-75' onClick={handleSearch} >検索</button>
+        </div>
 
-        <div className='flex flex-col' >
+        <div className='flex flex-col item-center justify-center' >
           <label className='shadow mx-2' htmlFor="resistence">
             <input type="checkbox" id="resistence" onChange={(e) => handleView(e.target.checked, "resistence")} />レジスタンス
           </label>
@@ -123,3 +130,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home;
