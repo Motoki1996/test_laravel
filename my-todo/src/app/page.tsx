@@ -4,6 +4,7 @@ import Image from 'next/image';
 import React, { HtmlHTMLAttributes, useState, useEffect, FC } from 'react';
 import { Header } from './components/header/header';
 import { Content } from './components/content/content';
+import { Button } from './atoms/Button/Button';
 import { useView } from './hooks/useView';
 import classes from './page.module.css';
 import Contents from './contents.json';
@@ -68,7 +69,7 @@ export const Home: FC = () => {
         <h2 className='text-lg mt-2 font-bold' >フィルタ</h2>
         <div className='flex box-border my-5'>
           <input type="text" className='mx-2 text-black h-8 w-auto rounded' value={text} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleText(e.target.value)} />
-          <button className='bg-blue-500 text-white rounded py-1 px-3 mr-2 h-8 w-16 transform hover:bg-blue-700 hover:scale-95 duration-75' onClick={handleSearch} >検索</button>
+          <Button text='検索' onClick={handleSearch} />
         </div>
 
         <div className='flex flex-col item-center justify-center' >
@@ -95,7 +96,7 @@ export const Home: FC = () => {
               <Image
                 src="/vercel.svg"
                 alt="Vercel Logo"
-                className="dark:invert"
+                className="dark:invert" s
                 width={100}
                 height={24}
                 priority
@@ -116,7 +117,7 @@ export const Home: FC = () => {
         </div>
 
         <h2 className='text-lg text-bold border-2 rounded py-1 px-3'>2のn乗 {count}</h2>
-        <button className='bg-blue-500 rounded py-1 px-3' onClick={handleClick} >ボタン</button>
+        <Button text='ボタン' onClick={handleClick} />
 
         <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
           {
